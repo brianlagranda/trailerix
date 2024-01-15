@@ -10,7 +10,7 @@ interface ApiResponse {
 
 export const useTmdbApi = () => {
   const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-  const accessToken = import.meta.env.VITE_TMDB_ACCESS_TOKEN;
+  const accessToken = import.meta.env.TMDB_ACCESS_TOKEN;
   const baseUrl = 'https://api.themoviedb.org/3';
 
   const searchMovies = async (query: string): Promise<Movie[]> => {
@@ -26,7 +26,9 @@ export const useTmdbApi = () => {
       const response = await fetch(
         `${baseUrl}/search/movie?query=${encodeURIComponent(
           query
-        )}&include_adult=false&language=en-US&page=1&api_key=${apiKey}`,
+        )}&include_adult=false&language=en-US&page=1&api_key=${
+          process.env.TMDB_API_KEY
+        }`,
         options
       );
 
