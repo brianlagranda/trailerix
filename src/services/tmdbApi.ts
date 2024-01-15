@@ -30,6 +30,9 @@ export const useTmdbApi = () => {
         options
       );
 
+      console.log(apiKey);
+      console.log(accessToken);
+
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
