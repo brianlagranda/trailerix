@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import SearchResults from './SearchResults';
-import { useTmdbApi } from '../services/service.ts';
+import { useTmdbApi } from '../services/tmdbApi.ts';
 
 interface Movie {
   id: number;
   title: string;
-  // Add other relevant fields
+  poster_path: string;
 }
 
 const SearchBar: React.FC = () => {
@@ -18,11 +18,12 @@ const SearchBar: React.FC = () => {
       try {
         const results = await tmdbApi.searchMovies(query);
         setMovies(results);
-        console.log(results);
-      } catch (error) {}
+      } catch (error) {
+        console.error(error);
+      }
     };
     search();
-  }, [query]);
+  }, [query, tmdbApi]);
 
   return (
     <div className='flex flex-col items-center mt-8'>
