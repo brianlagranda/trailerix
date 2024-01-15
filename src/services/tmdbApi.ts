@@ -9,8 +9,8 @@ interface ApiResponse {
 }
 
 export const useTmdbApi = () => {
-  const apiKey = import.meta.env.TMDB_API_KEY;
-  const accessToken = import.meta.env.TMDB_ACCESS_TOKEN;
+  const apiKey = process.env.TMDB_API_KEY;
+  const accessToken = process.env.TMDB_ACCESS_TOKEN;
   const baseUrl = 'https://api.themoviedb.org/3';
 
   const searchMovies = async (query: string): Promise<Movie[]> => {
