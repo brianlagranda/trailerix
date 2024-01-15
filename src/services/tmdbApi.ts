@@ -9,7 +9,7 @@ interface ApiResponse {
 }
 
 export const useTmdbApi = () => {
-  const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+  // const apiKey = import.meta.env.VITE_TMDB_API_KEY;
   const accessToken = import.meta.env.TMDB_ACCESS_TOKEN;
   const baseUrl = 'https://api.themoviedb.org/3';
 
