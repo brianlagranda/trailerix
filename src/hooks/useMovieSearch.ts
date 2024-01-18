@@ -1,10 +1,11 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
 interface Movie {
     id: number;
     title: string;
     poster_path: string;
+    overview: string;
 }
 
 interface UseMovieSearch {
@@ -37,6 +38,10 @@ const useMovieSearch = (): UseMovieSearch => {
             setLoading(false);
         }
     }, [searchTerm]);
+
+    useEffect(() => {
+        searchMovies();
+    }, [searchTerm, searchMovies]);
 
     return {
         searchTerm,
