@@ -10,6 +10,8 @@ const app = express();
 
 const accessToken = process.env.VITE_TMDB_ACCESS_TOKEN;
 
+app.use(cors());
+
 app.get('/', (req, res) => {
     res.json('Hello World!');
 });
