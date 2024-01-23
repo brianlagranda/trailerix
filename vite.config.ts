@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [react()],
     server: {
         proxy: {
-            '/data': 'http://localhost:8000',
+            '/data': 'https://trailerix-backend.vercel.app',
         },
     },
 });
