@@ -14,7 +14,6 @@ interface UseMovieSearch {
     movies: Movie[];
     loading: boolean;
     error: string | null;
-    searchMovies: () => Promise<void>;
 }
 
 const useMovieSearch = (): UseMovieSearch => {
@@ -23,33 +22,45 @@ const useMovieSearch = (): UseMovieSearch => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    const searchMovies = useCallback(async () => {
-        try {
-            setLoading(true);
-            const response: AxiosResponse<{ results: Movie[] }> =
-                await axios.get(
-                    `https://trailerix-backend.vercel.app/data?query=${encodeURIComponent(searchTerm)}`
-                );
-            setMovies(response.data.results || []);
-        } catch (error) {
-            console.error(error);
-            setError('An error occurred while fetching movies.');
-        } finally {
-            setLoading(false);
-        }
+    useEffect(() => {
+        const searchMovies = async () => {
+            try {
+                setLoading(true);
+                const response: AxiosResponse<{ results: Movie[] }> =
+                    await axios.get(
+                        `https://trailerix-backend.vercel.app/data?query=${encodeURIComponent(searchTerm)}`
+                    );
+                setMovies(response.data.results || []);
+            } catch (error) {
+                console.error(error);
+                setError('An error occurred while fetching movies.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        const timer = setTimeout(() => {
+            if (searchTerm) {
+                searchMovies();
+            }
+        }, 300);
+
+        return () => clearTimeout(timer);
     }, [searchTerm]);
 
-    useEffect(() => {
-        searchMovies();
-    }, [searchTerm, searchMovies]);
+    const delayedSetSearchTerm = useCallback(
+        (term: string) => {
+            setSearchTerm(term);
+        },
+        [setSearchTerm]
+    );
 
     return {
         searchTerm,
-        setSearchTerm,
+        setSearchTerm: delayedSetSearchTerm,
         movies,
         loading,
         error,
-        searchMovies,
     };
 };
 
