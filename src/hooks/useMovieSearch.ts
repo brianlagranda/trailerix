@@ -28,7 +28,7 @@ const useMovieSearch = (): UseMovieSearch => {
             setLoading(true);
             const response: AxiosResponse<{ results: Movie[] }> =
                 await axios.get(
-                    `/data?query=${encodeURIComponent(searchTerm)}`
+                    `https://trailerix-backend.vercel.app/data?query=${encodeURIComponent(searchTerm)}`
                 );
             setMovies(response.data.results || []);
         } catch (error) {
