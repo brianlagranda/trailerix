@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchResults from './SearchResults';
 import useMovieSearch from '../hooks/useMovieSearch';
+import { Triangle } from 'react-loader-spinner';
 
 const SearchBar: React.FC = () => {
     const { searchTerm, setSearchTerm, movies, loading, error } =
@@ -18,7 +19,16 @@ const SearchBar: React.FC = () => {
                 />
                 <SearchResults results={movies} />
             </div>
-            {loading && <p>Loading...</p>}
+            {loading && (
+                <Triangle
+                    visible={true}
+                    height="50"
+                    width="50"
+                    color="#fff"
+                    ariaLabel="triangle-loading"
+                    wrapperClass="p-4"
+                />
+            )}
             {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
     );
