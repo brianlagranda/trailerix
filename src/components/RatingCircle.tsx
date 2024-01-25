@@ -5,7 +5,7 @@ interface RatingCircleProps {
 }
 
 const RatingCircle: React.FC<RatingCircleProps> = ({ rating }) => {
-    const formattedRating = rating.toFixed(2);
+    const formattedRating = rating.toFixed(1);
 
     const getColorClass = () => {
         if (rating >= 8) {
@@ -19,9 +19,11 @@ const RatingCircle: React.FC<RatingCircleProps> = ({ rating }) => {
 
     return (
         <div
-            className={`w-10 h-10 border-4 rounded-full flex items-center justify-center ${getColorClass()}`}
+            className={`w-12 h-12 border-4 rounded-full flex items-center justify-center bg-black/60 ${getColorClass()}`}
         >
-            <span className="text-sm font-bold">{formattedRating}</span>
+            <span className="text-md font-bold text-white">
+                {formattedRating}
+            </span>
         </div>
     );
 };
