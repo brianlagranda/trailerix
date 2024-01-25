@@ -6,6 +6,7 @@ interface Movie {
     title: string;
     poster_path: string;
     overview: string;
+    vote_average: number;
 }
 
 interface UseMovieSearch {
@@ -28,13 +29,14 @@ const useMovieSearch = (): UseMovieSearch => {
                 setLoading(true);
                 const response: AxiosResponse<{ results: Movie[] }> =
                     await axios.get(
-                        `https://trailerix-backend.vercel.app/data?query=${encodeURIComponent(searchTerm)}`
+                        `https://trailerix-backend.vercel.app/movie?query=${encodeURIComponent(searchTerm)}`
                     );
                 setMovies(response.data.results || []);
             } catch (error) {
                 console.error(error);
                 setError('An error occurred while fetching movies.');
             } finally {
+                console.log(movies);
                 setLoading(false);
             }
         };
