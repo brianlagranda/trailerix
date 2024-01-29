@@ -1,42 +1,43 @@
 import { useState, useCallback, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
-interface Movie {
+interface Data {
     id: number;
     title: string;
     poster_path: string;
     overview: string;
     vote_average: number;
+    media_type: string;
+    name: string;
 }
 
-interface UseMovieSearch {
+interface useSearch {
     searchTerm: string;
     setSearchTerm: (term: string) => void;
-    movies: Movie[];
+    data: Data[];
     loading: boolean;
     error: string | null;
 }
 
-const useMovieSearch = (): UseMovieSearch => {
+const useSearch = (): useSearch => {
     const [searchTerm, setSearchTerm] = useState<string>('');
-    const [movies, setMovies] = useState<Movie[]>([]);
+    const [data, setData] = useState<Data[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         const searchMovies = async () => {
             try {
                 setLoading(true);
-                const response: AxiosResponse<{ results: Movie[] }> =
+                const response: AxiosResponse<{ results: Data[] }> =
                     await axios.get(
-                        `https://trailerix-backend.vercel.app/movie?query=${encodeURIComponent(searchTerm)}`
+                        `https://trailerix-backend.vercel.app/data?query=${encodeURIComponent(searchTerm)}`
                     );
-                setMovies(response.data.results || []);
+                setData(response.data.results || []);
             } catch (error) {
                 console.error(error);
                 setError('An error occurred while fetching movies.');
             } finally {
-                console.log(movies);
                 setLoading(false);
             }
         };
@@ -60,10 +61,10 @@ const useMovieSearch = (): UseMovieSearch => {
     return {
         searchTerm,
         setSearchTerm: delayedSetSearchTerm,
-        movies,
+        data,
         loading,
         error,
     };
 };
 
-export default useMovieSearch;
+export default useSearch;
