@@ -3,16 +3,18 @@ import noImagePlaceholder from '../assets/noImagePlaceholder.png';
 import { truncateText } from '../utils/functions.tsx';
 import RatingCircle from './RatingCircle.tsx';
 
-interface Movie {
+interface Data {
     id: number;
     title: string;
     poster_path: string;
     overview: string;
     vote_average: number;
+    media_type: string;
+    name: string;
 }
 
 interface SearchResultsProps {
-    results: Movie[];
+    results: Data[];
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
@@ -20,13 +22,29 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         return null;
     }
 
+    const filteredResults = results.filter(
+        (result) =>
+            (result.media_type === 'movie' &&
+                result.title &&
+                result.title.trim() !== '' &&
+                result.poster_path !== null) ||
+            (result.media_type === 'tv' &&
+                result.name &&
+                result.name.trim() !== '' &&
+                result.poster_path !== null)
+    );
+
+    const sortedResults = filteredResults.sort((a, b) => a.id - b.id);
+
+    console.log(sortedResults);
+
     return (
         <ul
             className={`${
                 results[0].title === '' ? '' : 'bg-zinc-800'
             } -mt-3 p-3 rounded-b-md`}
         >
-            {results.map(
+            {sortedResults.map(
                 ({ poster_path, title, overview, vote_average }, index) => (
                     <li
                         key={index}
