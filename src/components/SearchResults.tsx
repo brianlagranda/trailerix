@@ -38,8 +38,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
     const sortedResults = filteredResults.sort((a, b) => a.id - b.id);
 
-    console.log(sortedResults);
-
     return (
         <ul
             className={`${
