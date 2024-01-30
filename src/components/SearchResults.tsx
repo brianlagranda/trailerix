@@ -27,10 +27,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
             (result.media_type === 'movie' &&
                 result.title &&
                 result.title.trim() !== '' &&
+                result.overview !== '' &&
                 result.poster_path !== null) ||
             (result.media_type === 'tv' &&
                 result.name &&
                 result.name.trim() !== '' &&
+                result.overview !== '' &&
                 result.poster_path !== null)
     );
 
@@ -45,7 +47,17 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
             } -mt-3 p-3 rounded-b-md`}
         >
             {sortedResults.map(
-                ({ poster_path, title, overview, vote_average }, index) => (
+                (
+                    {
+                        poster_path,
+                        title,
+                        overview,
+                        vote_average,
+                        media_type,
+                        name,
+                    },
+                    index
+                ) => (
                     <li
                         key={index}
                         className="mt-4 grid grid-cols-4 p-2 gap-4 w-full"
@@ -55,7 +67,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                                 <img
                                     className="w-full md:w-1/2 rounded-md object-contain"
                                     src={noImagePlaceholder}
-                                    alt={`${title} movie poster`}
+                                    alt={`${media_type === 'movie' ? title : name} movie poster`}
                                 />
                                 <RatingCircle rating={vote_average} />
                             </div>
@@ -64,7 +76,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                                 <img
                                     className="w-full h-full rounded-md object-contain"
                                     src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-                                    alt={`${title} movie poster`}
+                                    alt={`${media_type === 'movie' ? title : name} movie poster`}
                                 />
                                 <div className="absolute left-full transform -translate-x-3/4 -translate-y-3/4">
                                     <RatingCircle rating={vote_average} />
@@ -73,7 +85,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                         )}
                         <div className="col-span-3 p-2 border border-gray-200/20 rounded-md bg-gray-200/10">
                             <h2 className="text-center font-bold text-lg">
-                                {title}
+                                {media_type === 'movie' ? title : name}
                             </h2>
                             <p className="p-2">{truncateText(overview)}</p>
                         </div>
