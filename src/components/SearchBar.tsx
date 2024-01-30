@@ -1,11 +1,10 @@
 import React from 'react';
 import SearchResults from './SearchResults';
-import useMovieSearch from '../hooks/useSearch';
+import useSearch from '../hooks/useSearch';
 import { Triangle } from 'react-loader-spinner';
 
 const SearchBar: React.FC = () => {
-    const { searchTerm, setSearchTerm, data, loading, error } =
-        useMovieSearch();
+    const { searchTerm, setSearchTerm, data, loading, error } = useSearch();
 
     return (
         <div className="flex flex-col items-center mt-8">
@@ -17,7 +16,7 @@ const SearchBar: React.FC = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <SearchResults results={data} />
+                {searchTerm !== '' && <SearchResults results={data} />}
             </div>
             {loading && (
                 <Triangle
