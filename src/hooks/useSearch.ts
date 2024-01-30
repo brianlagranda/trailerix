@@ -36,7 +36,7 @@ const useSearch = (): useSearch => {
                 setData(response.data.results || []);
             } catch (error) {
                 console.error(error);
-                setError('An error occurred while fetching movies.');
+                setError('An error occurred while fetching movies/series.');
             } finally {
                 setLoading(false);
             }
