@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from 'axios';
 interface Data {
     id: number;
     title: string;
+    genres: string[];
     poster_path: string;
     overview: string;
     vote_average: number;
