@@ -1,8 +1,5 @@
 import React from 'react';
-
-interface RatingCircleProps {
-    rating: number;
-}
+import { RatingCircleProps } from '../types/SearchTypes';
 
 const RatingCircle: React.FC<RatingCircleProps> = ({ rating }) => {
     const formattedRating = rating.toFixed(1);

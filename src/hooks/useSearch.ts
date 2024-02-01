@@ -1,28 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import { SearchHook, SearchResult } from '../types/SearchTypes';
 
-interface Data {
-    id: number;
-    title: string;
-    genres: string[];
-    poster_path: string;
-    overview: string;
-    vote_average: number;
-    media_type: string;
-    name: string;
-}
-
-interface useSearch {
-    searchTerm: string;
-    setSearchTerm: (term: string) => void;
-    data: Data[];
-    loading: boolean;
-    error: string | null;
-}
-
-const useSearch = (): useSearch => {
+const useSearch = (): SearchHook => {
     const [searchTerm, setSearchTerm] = useState<string>('');
-    const [data, setData] = useState<Data[]>([]);
+    const [data, setData] = useState<SearchResult[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
@@ -30,7 +12,7 @@ const useSearch = (): useSearch => {
         const searchMovies = async () => {
             try {
                 setLoading(true);
-                const response: AxiosResponse<{ results: Data[] }> =
+                const response: AxiosResponse<{ results: SearchResult[] }> =
                     await axios.get(
                         `https://trailerix-backend.vercel.app/data?query=${encodeURIComponent(searchTerm)}`
                     );
