@@ -9,6 +9,12 @@ export interface SearchResult {
     media_type: string;
     name: string;
     video_key: string;
+    trailer: trailerProps;
+}
+
+export interface trailerProps {
+    key: string;
+    size: number;
 }
 
 export interface SearchResultsProps {

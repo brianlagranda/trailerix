@@ -7,9 +7,20 @@ import VideoPlayer from './VideoPlayer.tsx';
 
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
     const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
-    const openVideo = () => {
-        setSelectedVideo('3JlFHcFDH-w');
+    const openVideo = async (videoId: string) => {
+        try {
+            if (!videoId) {
+                throw new Error('Video ID is not available');
+            }
+
+            setSelectedVideo(videoId);
+            setError(null);
+        } catch (error) {
+            console.error('Error opening video:', error.message);
+            setError('Failed to open video' as string);
+        }
     };
 
     const closeVideo = () => {
@@ -54,6 +65,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                         vote_average,
                         media_type,
                         name,
+                        trailer,
                     }) => (
                         <li
                             key={id}
@@ -61,7 +73,9 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                         >
                             <div
                                 className="col-span-1 relative w-full h-full cursor-pointer"
-                                onClick={() => openVideo()}
+                                onClick={() =>
+                                    trailer && openVideo(trailer.key)
+                                }
                             >
                                 <img
                                     className="w-full h-full rounded-md object-contain"
@@ -106,6 +120,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                     closeVideo={closeVideo}
                 />
             )}
+
+            {error && <p style={{ color: 'red' }}>{error}</p>}
         </>
     );
 };
