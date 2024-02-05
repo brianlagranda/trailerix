@@ -7,14 +7,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 }) => {
     return (
         selectedVideo && (
-            <div className="modal">
-                <div className="modal-content">
-                    <span className="close" onClick={closeVideo}>
-                        &times;
-                    </span>
+            <div
+                className="bg-black/80 fixed top-0 left-0 w-full h-full flex justify-center items-center cursor-pointer"
+                onClick={closeVideo}
+            >
+                <div className="w-3/4 h-3/4 rounded-lg">
                     <iframe
-                        width="560"
-                        height="315"
+                        className="rounded-lg"
+                        width="100%"
+                        height="100%"
                         src={`https://www.youtube.com/embed/${selectedVideo}`}
                         title="YouTube video player"
                         allowFullScreen
