@@ -17,9 +17,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
             setSelectedVideo(videoId);
             setError(null);
-        } catch (error) {
-            console.error('Error opening video:', error.message);
-            setError('Failed to open video' as string);
+        } catch (e) {
+            if (e instanceof Error) {
+                console.error('Error opening video:', e.message);
+                setError('Failed to open video');
+            }
         }
     };
 
