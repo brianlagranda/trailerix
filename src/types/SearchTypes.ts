@@ -14,7 +14,6 @@ export interface SearchResult {
 
 export interface trailerProps {
     key: string;
-    size: number;
 }
 
 export interface SearchResultsProps {
