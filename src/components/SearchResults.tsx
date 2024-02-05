@@ -96,7 +96,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                                 </h2>
                                 <p className="p-2">{truncateText(overview)}</p>
                                 <ul className="flex gap-2 p-2">
-                                    {genres.map((genre, index) => (
+                                    {genres?.map((genre, index) => (
                                         <li
                                             key={
                                                 genre_ids[index].toString() +
