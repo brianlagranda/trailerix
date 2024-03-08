@@ -9,6 +9,10 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
     const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
+    if (results.length === 0) {
+        return null;
+    }
+
     const openVideo = async (videoId: string) => {
         try {
             if (!videoId) {
@@ -28,10 +32,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
     const closeVideo = () => {
         setSelectedVideo(null);
     };
-
-    if (results.length === 0) {
-        return null;
-    }
 
     const filteredResults = results.filter(
         (result) =>
@@ -54,7 +54,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
             <ol
                 className={`${
                     results[0].title === '' ? '' : 'bg-zinc-800'
-                } -mt-3 p-3 rounded-b-md`}
+                } -mt-3 rounded-b-md p-3`}
             >
                 {sortedResults.map(
                     ({
@@ -71,16 +71,16 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                     }) => (
                         <li
                             key={id}
-                            className="mt-4 grid grid-cols-4 p-2 gap-4 w-full"
+                            className="mt-4 grid w-full grid-cols-4 gap-4 p-2"
                         >
                             <div
-                                className="col-span-1 relative w-full h-full cursor-pointer"
+                                className="relative col-span-1 h-full w-full cursor-pointer"
                                 onClick={() =>
                                     trailer && openVideo(trailer.key)
                                 }
                             >
                                 <img
-                                    className="w-full h-full rounded-md object-contain"
+                                    className="h-full w-full rounded-md object-contain"
                                     src={
                                         poster_path !== null
                                             ? `https://image.tmdb.org/t/p/w500/${poster_path}`
@@ -88,12 +88,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                                     }
                                     alt={`${media_type === 'movie' ? title : name} movie poster`}
                                 />
-                                <div className="absolute left-full transform -translate-x-3/4 -translate-y-3/4">
+                                <div className="absolute left-full -translate-x-3/4 -translate-y-3/4 transform">
                                     <RatingCircle rating={vote_average} />
                                 </div>
                             </div>
-                            <div className="col-span-3 p-2 border border-gray-200/20 rounded-md bg-gray-200/10">
-                                <h2 className="text-center font-bold text-lg">
+                            <div className="col-span-3 rounded-md border border-gray-200/20 bg-gray-200/10 p-2">
+                                <h2 className="text-center text-lg font-bold">
                                     {media_type === 'movie' ? title : name}
                                 </h2>
                                 <p className="p-2">{truncateText(overview)}</p>
@@ -104,7 +104,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                                                 genre_ids[index].toString() +
                                                 id.toString()
                                             }
-                                            className="border-2 border-indigo-600 rounded-lg p-1 bg-indigo-400/20 text-white text-sm font-bold"
+                                            className="rounded-lg border-2 border-indigo-600 bg-indigo-400/20 p-1 text-sm font-bold text-white"
                                         >
                                             {genre}
                                         </li>

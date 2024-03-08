@@ -7,10 +7,10 @@ const SearchBar: React.FC = () => {
     const { searchTerm, setSearchTerm, data, loading, error } = useSearch();
 
     return (
-        <div className="flex flex-col items-center mt-8">
-            <div className="gap-2 w-full md:w-3/4 md:grid-cols-[10fr,1fr] lg:w-2/4">
+        <div className="mt-8 flex flex-col items-center">
+            <div className="w-full gap-2 md:w-3/4 md:grid-cols-[10fr,1fr] lg:w-2/4">
                 <input
-                    className="w-full h-10 rounded-md p-3 bg-zinc-800 focus:outline-none focus:ring-0"
+                    className="h-10 w-full rounded-md bg-zinc-800 p-3 focus:outline-none focus:ring-0"
                     type="text"
                     placeholder="Search your favourite movies/series..."
                     value={searchTerm}

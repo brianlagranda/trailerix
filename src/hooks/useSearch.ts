@@ -14,7 +14,7 @@ const useSearch = (): SearchHook => {
                 setLoading(true);
                 const response: AxiosResponse<{ results: SearchResult[] }> =
                     await axios.get(
-                        `https://trailerix-backend.vercel.app/data?query=${encodeURIComponent(searchTerm)}`
+                        `http://localhost:7000/data?query=${encodeURIComponent(searchTerm)}`
                     );
                 setData(response.data.results || []);
             } catch (error) {

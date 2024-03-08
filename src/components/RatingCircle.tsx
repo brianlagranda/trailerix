@@ -16,7 +16,7 @@ const RatingCircle: React.FC<RatingCircleProps> = ({ rating }) => {
 
     return (
         <div
-            className={`w-12 h-12 border-4 rounded-full flex items-center justify-center bg-black/60 ${getColorClass()}`}
+            className={`flex h-12 w-12 items-center justify-center rounded-full border-4 bg-black/60 ${getColorClass()}`}
         >
             <span className="text-md font-bold text-white">
                 {formattedRating}
